@@ -18,7 +18,48 @@
     <title>Formula One API Consumer</title>
 </head>
 <body>
-    <canvas id="meuGrafico"></canvas>
-    
+    <!--<canvas id="meuGrafico"></canvas>-->
+    <header>
+        <div class="logo">
+            <img src="./favicon.ico" alt="Logo: Senna Helmet">
+        </div>
+        <div>
+            <a href="#">Home</a>
+            <a href="https://ergast.com/mrd/" target="_blank">Ergast API</a>
+            <a href="#">About</a>
+        </div>
+    </header>
+    <main>
+        <div class="sidebar">
+            <span>MENU</span>
+            <button type="button">Race Schedule</button>
+            <button type="button">Drivers Standings</button>
+            <button type="button">Constructor Standings</button>
+            <button type="button">Race Analisis</button>
+            <button type="button">Qualy Analisis</button>
+        </div>
+        <div class="principal">
+            <h1>Race Schedules</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Season</th>
+                        <th>Round</th>
+                        <th>Race Name</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Sprint</th>
+                        <th>Circuit</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    <!-- Dados inseridos dinamicamente -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <footer>
+
+    </footer>
 </body>
 </html>

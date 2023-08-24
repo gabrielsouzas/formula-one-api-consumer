@@ -1,6 +1,6 @@
-export const fetchDrivers = async (year) => {
+export const fetchDrivers = async (year, round) => {
     try {
-        const response = await fetch(`https://ergast.com/api/f1/${year}/drivers.json`);
+        const response = await fetch(`https://ergast.com/api/f1/${year}/${round}/drivers.json?limit=2`);
     if (response.ok) {
         const drivers = await response.json();
         if (drivers) {
@@ -52,11 +52,37 @@ export const fetchDriverConstructor = async (year, driver) => {
 
 export const fetchLapTime = async (year, round, driver) => {
     try {
-        const response = await fetch(`https://ergast.com/api/f1/${year}/${round}/drivers/${driver}/laps.json`);
+        const response = await fetch(`https://ergast.com/api/f1/${year}/${round}/drivers/${driver}/laps.json?limit=100`);
     if (response.ok) {
         const laptimes = await response.json();
         if (laptimes) {
             return laptimes['MRData'];
+        } else {
+            return {
+                error: 'Erro ao converter dados retornados.',
+                status: response.status,
+                message: response.statusText
+            };
+        }
+    } else {
+        return {
+            error: 'Erro na requisição',
+            status: response.status,
+            message: response.statusText
+        };
+    }
+    } catch (error) {
+        return {error};
+    }
+}
+
+export const fetchRaceSchedule = async (year = 'current') => {
+    try {
+        const response = await fetch(`https://ergast.com/api/f1/${year}.json`);
+    if (response.ok) {
+        const races = await response.json();
+        if (races) {
+            return races.MRData.RaceTable.Races;
         } else {
             return {
                 error: 'Erro ao converter dados retornados.',
