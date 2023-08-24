@@ -33,8 +33,6 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-
-
 const fillGraficData = async (year, round) => {
 
     // Dados que vão para o gráfico
@@ -77,13 +75,6 @@ const fillGraficData = async (year, round) => {
 
     return data;
 }
-
-/*const timeString = "1:44.363";
-const timeInMillis = parseTimeStringToMillis(timeString);
-const formattedTime = formatTimeForDisplay(103608);
-
-console.log(formattedTime);*/
-
 
 async function createChart() {
     const chartData = await fillGraficData(2023, 1);
