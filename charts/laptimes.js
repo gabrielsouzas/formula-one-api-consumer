@@ -52,12 +52,15 @@ const fillGraficData = async (year, round) => {
             const labels = lapLabel.map(item => item);
             data.labels = labels;
         }
+
         
-        const lapTimes = lapTimeData.RaceTable.Races[0].Laps;
+        
+        const lapTimes = lapTimeData.RaceTable.Races.length > 0 ? lapTimeData.RaceTable.Races[0].Laps : '';
 
-        const formatedLapTimes = lapTimes.map(item => parseTimeStringToMillis(item['Timings'][0]['time']));
+        const formatedLapTimes = lapTimes.length > 0 ? lapTimes.map(item => parseTimeStringToMillis(item['Timings'][0]['time'])) : '';
 
-        setSlowestAndFastestLapTime(formatedLapTimes)
+        //setSlowestAndFastestLapTime(formatedLapTimes)
+        
 
         const dataset = {
             label: drivers[i].code, 
@@ -76,17 +79,36 @@ const fillGraficData = async (year, round) => {
     return data;
 }
 
-async function createChart() {
-    const chartData = await fillGraficData(2023, 1);
+export async function createChart(idGrafic, year, round) {
 
+    const gridColor = '#42474B';
+    const labelsColor = '#FFF';
+
+    const chartData = await fillGraficData(year, round);
+
+    /*const filter = ['ALO', 'VER', 'HAM', 'LEC'];
+
+    const filteredDatasets = chartData.datasets.filter(dataset => filter.includes(dataset.label));
+    
+    const filteredChartData = {
+        ...chartData,
+        datasets: filteredDatasets
+    };*/
+    
     // Gráfico
-    const ctx = document.getElementById('meuGrafico').getContext('2d');
+    const ctx = document.getElementById(idGrafic).getContext('2d');
 
     const myChart = new Chart(ctx, {
         type: 'line',
-        data: chartData,
+        data: chartData, //filteredChartData,
         options: {
+            
             plugins: {
+                legend: {
+                    labels: {
+                        color: labelsColor // Defina a cor desejada para as legendas
+                    }
+                },
                 tooltip: {
                     callbacks: {
                         label: function(context) {
@@ -94,7 +116,7 @@ async function createChart() {
                             return formatTimeForDisplay(value); // Usa a função de formatação
                         }
                     }
-                }
+                },
             },
             scales: {
                 y: {
@@ -106,12 +128,24 @@ async function createChart() {
                         callback: function(value, index, values) {
                             return formatTimeForDisplay(value); // Usa a função de formatação dos dados
                         },
+                        color: labelsColor
                         //stepSize: 100 // Define o intervalo em milissegundos
+                    },
+                    grid: {
+                        color: gridColor // Defina a cor desejada para as linhas horizontais
                     }
-                }
+                },
+                x: {
+                    ticks: {
+                        color: labelsColor
+                    },
+                    grid: {
+                        color: gridColor // Defina a cor desejada para as linhas verticais
+                    },
+                },
             }
         }
     });
 }
 
-createChart();
+//createChart();

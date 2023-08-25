@@ -1,0 +1,143 @@
+@charset "UTF-8";
+
+/* Fontes */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+/* Reset */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    font-family: 'Roboto', sans-serif;
+    scroll-behavior: smooth;
+}
+body {
+    background-color: #52616e;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+    background-color: #202932;
+}
+
+header .logo img {
+    padding-left: 8px;
+    width: 50px;
+}
+
+header .links {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    padding-right: 8px;
+}
+
+header .links a {
+    color: white;
+    /*background-color: #E10600;*/
+    border-radius: 5px;
+    padding: 5px 8px;
+    font-weight: 600;
+}
+
+header .links a:hover {
+    color: #415f7c;
+}
+
+main .principal {
+    background-color: #52616e;
+    height: 100%;
+}
+
+main .principal h1 {
+    color: #FFF;
+    text-align: center;
+    padding: 10px 0;
+}
+
+/* FORM */
+
+main .form-container {
+    width: 100%;
+    height: 100%;
+    padding: 30px 20px;
+}
+
+main form {
+    color: #FFF;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+form input, form select {
+    width: 100%;
+    height: 100%;
+    padding: 8px 3px;
+    font-size: 1rem;
+    background-color: #202932;
+    border: none;
+    color: #FFF;
+}
+
+main form button {
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 5px;
+    color: #fff;
+    padding: 8px 15px;
+    background-color: #354453;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0px 8px 12px rgba(48, 68, 94, 0.4);
+    text-transform: uppercase;
+}
+
+main form button:hover {
+    background-color: #2b4258;
+  }
+
+/* CHART CONTAINER */
+
+main .chart-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 30px 20px;
+    background-color: #202932;
+    
+}
+
+/* CHART */
+
+main #lapTimesGrafic {
+    padding: 10px;
+    width: 100%;
+}
+
+/* LOADING */
+
+.loader {
+    display: none;
+    border: 16px solid #52616e; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-bottom: 16px solid #3498db; 
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+  
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

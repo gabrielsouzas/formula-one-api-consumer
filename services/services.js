@@ -1,6 +1,6 @@
 export const fetchDrivers = async (year, round) => {
     try {
-        const response = await fetch(`https://ergast.com/api/f1/${year}/${round}/drivers.json?limit=2`);
+        const response = await fetch(`https://ergast.com/api/f1/${year}/${round}/drivers.json?limit=2`); //?limit=2
     if (response.ok) {
         const drivers = await response.json();
         if (drivers) {

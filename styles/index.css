@@ -1,0 +1,130 @@
+@charset "UTF-8";
+
+/* Fontes */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+/* Reset */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    font-family: 'Roboto', sans-serif;
+    scroll-behavior: smooth;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+    background-color: #202932;
+}
+
+header .logo img {
+    padding-left: 8px;
+    width: 50px;
+}
+
+header .links {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    padding-right: 8px;
+}
+
+header .links a {
+    color: white;
+    /*background-color: #E10600;*/
+    border-radius: 5px;
+    padding: 5px 8px;
+    font-weight: 600;
+}
+
+header .links a:hover {
+    color: #415f7c;
+}
+
+/* MAIN */
+
+main {
+    display: flex;
+    flex-direction: row;
+}
+
+/* SIDEBAR */
+
+main .sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    align-items: center;
+    background-color: #121e2b;
+    color: white;
+}
+
+main .sidebar span {
+    font-weight: 600;
+    font-size: 1.3rem;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+main .sidebar button {
+    width: 100%;
+    background-color: transparent;
+    color: #FFF;
+    border: none;
+    cursor: pointer;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: 500;
+    font-size: 1.2rem;
+}
+
+main .principal {
+    background-color: #52616e;
+}
+
+main .principal h1 {
+    color: #FFF;
+    text-align: center;
+    padding: 10px 0;
+}
+
+/* TABLE*/
+
+main .principal .table-container {
+    padding: 0 12px;
+}
+
+table {
+    width: 100%;;
+    border-collapse: collapse;
+    color: #fff;
+    overflow: scroll;
+}
+
+thead {
+    background-color: #202932;
+}
+thead tr {
+    text-transform: uppercase;
+}
+
+th, td {
+    border: 1px solid #202932;
+    padding: 8px;
+    text-align: center;
+}
+
+tr:nth-child(even) {
+    background-color: #2C3845;
+}
+
+tr:nth-child(odd) {
+    background-color: #4a5b6eaf;
+}

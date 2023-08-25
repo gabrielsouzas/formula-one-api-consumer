@@ -11,6 +11,7 @@
 
     <!--Javascript-->
     <script defer type="module" src="javascript/index.js"></script>
+    <!--<script defer type="module" src="charts/lapTimes.js"></script>-->
 
     <!--Styles-->
     <link rel="stylesheet" href="styles/index.css">
@@ -23,7 +24,7 @@
         <div class="logo">
             <img src="./favicon.ico" alt="Logo: Senna Helmet">
         </div>
-        <div>
+        <div class="links">
             <a href="#">Home</a>
             <a href="https://ergast.com/mrd/" target="_blank">Ergast API</a>
             <a href="#">About</a>
@@ -40,22 +41,24 @@
         </div>
         <div class="principal">
             <h1>Race Schedules</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Season</th>
-                        <th>Round</th>
-                        <th>Race Name</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Sprint</th>
-                        <th>Circuit</th>
-                    </tr>
-                </thead>
-                <tbody id="table-body">
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Season</th>
+                            <th>Round</th>
+                            <th>Race Name</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Sprint</th>
+                            <th>Circuit</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
                     <!-- Dados inseridos dinamicamente -->
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </main>
     <footer>
