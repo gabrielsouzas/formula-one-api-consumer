@@ -1,6 +1,7 @@
 import { fetchDriverConstructor, fetchDrivers, fetchLapTime } from '../services/services.js';
 import constructorColors from '../helpers/constructorColors.js'
 import { formatTimeForDisplay, parseTimeStringToMillis } from '../helpers/formatters.js';
+import { validateLapTime } from '../helpers/validation.js';
 
 var slowetsLap = 0;
 var fastestLap = 9999999999;
@@ -33,7 +34,7 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-const fillGraficData = async (year, round) => {
+const fillGraficData = async (year, round, plusAverage) => {
 
     // Dados que vão para o gráfico
     var data = {
@@ -60,11 +61,14 @@ const fillGraficData = async (year, round) => {
         const formatedLapTimes = lapTimes.length > 0 ? lapTimes.map(item => parseTimeStringToMillis(item['Timings'][0]['time'])) : '';
 
         //setSlowestAndFastestLapTime(formatedLapTimes)
+
+        // Verifica se possui valores muito acima da média que podem comprometer os dados
+        const validatedLapTimes = validateLapTime(formatedLapTimes, plusAverage);
         
 
         const dataset = {
             label: drivers[i].code, 
-            data: formatedLapTimes, 
+            data: validatedLapTimes, //formatedLapTimes, 
             borderColor: getDriverColor(constructor),
             backgroundColor: getDriverColor(constructor),
             borderWidth: 2,
@@ -79,12 +83,12 @@ const fillGraficData = async (year, round) => {
     return data;
 }
 
-export async function createChart(idGrafic, year, round) {
+export async function createChart(idGrafic, year, round, plusAverage = 2) {
 
     const gridColor = '#42474B';
     const labelsColor = '#FFF';
 
-    const chartData = await fillGraficData(year, round);
+    const chartData = await fillGraficData(year, round, plusAverage);
 
     /*const filter = ['ALO', 'VER', 'HAM', 'LEC'];
 
