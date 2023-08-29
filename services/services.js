@@ -1,6 +1,6 @@
 export const fetchDrivers = async (year, round) => {
     try {
-        const response = await fetch(`https://ergast.com/api/f1/${year}/${round}/drivers.json`); //?limit=2
+        const response = await fetch(`http://ergast.com/api/f1/${year}/${round}/drivers.json`); //?limit=2
     if (response.ok) {
         const drivers = await response.json();
         if (drivers) {
@@ -26,7 +26,7 @@ export const fetchDrivers = async (year, round) => {
 
 export const fetchDriverConstructor = async (year, driver) => {
     try {
-        const response = await fetch(`https://ergast.com/api/f1/${year}/drivers/${driver}/constructors.json`);
+        const response = await fetch(`http://ergast.com/api/f1/${year}/drivers/${driver}/constructors.json`);
     if (response.ok) {
         const driverConstructor = await response.json();
         if (driverConstructor) {
@@ -52,7 +52,7 @@ export const fetchDriverConstructor = async (year, driver) => {
 
 export const fetchLapTime = async (year, round, driver) => {
     try {
-        const response = await fetch(`https://ergast.com/api/f1/${year}/${round}/drivers/${driver}/laps.json?limit=100`);
+        const response = await fetch(`http://ergast.com/api/f1/${year}/${round}/drivers/${driver}/laps.json?limit=100`);
     if (response.ok) {
         const laptimes = await response.json();
         if (laptimes) {
@@ -78,7 +78,7 @@ export const fetchLapTime = async (year, round, driver) => {
 
 export const fetchRaceSchedule = async (year = 'current') => {
     try {
-        const response = await fetch(`https://ergast.com/api/f1/${year}.json`);
+        const response = await fetch(`http://ergast.com/api/f1/${year}.json`);
     if (response.ok) {
         const races = await response.json();
         if (races) {

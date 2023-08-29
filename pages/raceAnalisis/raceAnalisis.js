@@ -1,14 +1,15 @@
 import { createChart } from "../../charts/laptimes.js";
 import { formatTimeForDisplay, parseTimeStringToMillis } from "../../helpers/formatters.js";
-import { fetchLapTime, fetchRaceSchedule } from "../../services/services.js";
+import { fetchDrivers, fetchLapTime, fetchRaceSchedule } from "../../services/services.js";
 
 const year = document.querySelector('#year');
 const race = document.querySelector('#race');
 const type = document.querySelector('#type');
-
 const form = document.querySelector('#form');
-
+const lapTimesGrafic = document.querySelector('#lapTimesGrafic');
+const tableCompare = document.querySelector('.table-compare');
 const tableBody = document.querySelector('#table-body')
+const selDrivers = document.querySelectorAll('.drivers-compare');
 
 var availableRaces = [];
 var selectedRound = 1;
@@ -46,14 +47,44 @@ year.addEventListener('change', async () => {
     await fillRaces();
 });
 
+type.addEventListener('change', async () => {
+    if (type.value == 'driverscompare') {
+        selDrivers[0].style.display = 'block';
+        selDrivers[1].style.display = 'block';
+
+        await fillDriversSelects();
+    }
+});
+
 const handleSubmit = async (event) => {
     event.preventDefault();
     
     if (type.value === 'laptimes') {
+        lapTimesGrafic.style.display = 'block';
         await createChart('lapTimesGrafic', year.value, race.value);
+    } else if (type.value === 'driverscompare') {
+        await loadTableCompareLapsDrivers();
     }
     
 };
+
+// Drivers Compare
+
+const fillDriversSelects = async () => {
+    const drivers = await fetchDrivers(year.value, race.value);
+    
+    if (drivers) {
+        for (let i = 0; i < drivers.length; i++) {
+            const optionDriver1 = createOption(drivers[i].driverId, drivers[i].familyName);
+            selDrivers[0].appendChild(optionDriver1);
+
+            const optionDriver2 = createOption(drivers[i].driverId, drivers[i].familyName);
+            selDrivers[1].appendChild(optionDriver2);
+
+        }
+    }
+};
+
 
 const fastestDriver = (driver1, driver2, lapTimeDriver1, lapTimeDriver2) => {
     let ld1 = parseTimeStringToMillis(lapTimeDriver1);
@@ -117,10 +148,10 @@ const createRow = (driver1, lapNumberDriver1, lapTimeDriver1, lapPositionDriver1
     return row;
 };
 
-const compareLapsDrivers = async () => {
+const loadTableCompareLapsDrivers = async () => {
     try {
-        const lapTimesDriver1 = await fetchLapTime(2023, 13, 'hamilton');
-        const lapTimesDriver2 = await fetchLapTime(2023, 13, 'alonso');
+        const lapTimesDriver1 = await fetchLapTime(year.value, race.value, selDrivers[0].value);
+        const lapTimesDriver2 = await fetchLapTime(year.value, race.value, selDrivers[1].value);
 
         //console.log(lapTimesDriver1);
 
@@ -135,18 +166,16 @@ const compareLapsDrivers = async () => {
             let lapPositionDriver1 = lapTimesDriver1.RaceTable.Races[0].Laps[i].Timings[0].position;
             let lapPositionDriver2 = lapTimesDriver2.RaceTable.Races[0].Laps[i].Timings[0].position;
             
-            const row = createRow('hamilton', lapNumberDriver1, lapTimeDriver1, lapPositionDriver1,
-                                    'alonso', lapNumberDriver2, lapTimeDriver2, lapPositionDriver2);
+            const row = createRow(selDrivers[0].options[selDrivers[0].selectedIndex].text, lapNumberDriver1, lapTimeDriver1, lapPositionDriver1, selDrivers[1].options[selDrivers[1].selectedIndex].text, lapNumberDriver2, lapTimeDriver2, lapPositionDriver2);
 
             tableBody.appendChild(row);
             
         }
+        tableCompare.style.display = 'block';
     } catch (error) {
        console.log(error); 
     }
 };
-
-compareLapsDrivers();
 
 form.addEventListener('submit', handleSubmit);
 

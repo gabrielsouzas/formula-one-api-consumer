@@ -89,6 +89,10 @@ form input, form select {
     color: #FFF;
 }
 
+form .drivers-compare {
+    display: none;
+}
+
 main form button {
     font-size: 1.2rem;
     font-weight: 600;
@@ -120,6 +124,7 @@ main .chart-container {
 /* CHART */
 
 main #lapTimesGrafic {
+    display: none;
     padding: 10px;
     width: 100%;
 }
@@ -135,6 +140,44 @@ main #lapTimesGrafic {
     width: 120px;
     height: 120px;
     animation: spin 2s linear infinite;
+}
+
+/* TABLE*/
+
+main .principal .table-container {
+    padding: 0 12px;
+}
+
+main .table-compare {
+    display: none;
+}
+
+table {
+    width: 100%;;
+    border-collapse: collapse;
+    color: #fff;
+    overflow: scroll;
+}
+
+thead {
+    background-color: #202932;
+}
+thead tr {
+    text-transform: uppercase;
+}
+
+th, td {
+    border: 1px solid #202932;
+    padding: 8px;
+    text-align: center;
+}
+
+tr:nth-child(even) {
+    background-color: #2C3845;
+}
+
+tr:nth-child(odd) {
+    background-color: #4a5b6eaf;
 }
   
 @keyframes spin {
