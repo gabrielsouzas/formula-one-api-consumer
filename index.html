@@ -31,16 +31,25 @@
         </div>
     </header>
     <main>
-        <div class="sidebar">
+        <!--<div class="sidebar">
             <span>MENU</span>
             <button type="button">Race Schedule</button>
             <button type="button">Drivers Standings</button>
             <button type="button">Constructor Standings</button>
             <button type="button">Race Analisis</button>
             <button type="button">Qualy Analisis</button>
-        </div>
+        </div>-->
         <div class="principal">
-            <h1>Race Schedules</h1>
+            <h1>MENU</h1>
+            <div class="menu">
+                <button type="button" id="mn-rc-schd">Race Schedule</button>
+                <button type="button" id="mn-drv-stdngs">Drivers Standings</button>
+                <button type="button" id="mn-cntrtr-stdngs">Constructor Standings</button>
+                <button type="button" id="mn-rc-anls">Race Analisis</button>
+                <button type="button" id="mn-qly-anls">Qualy Analisis</button>
+            </div>
+
+            <h2>Race Schedules</h2>
             <div class="table-container">
                 <table>
                     <thead>
@@ -60,9 +69,29 @@
                 </table>
             </div>
         </div>
+
+              <div class="modal">
+                <div class="modal-content">
+                  <div class="modal-title">
+                    <h3>Choose filters</h3>
+                    <span class="close">
+                          &times;
+                    </span>
+                  </div>
+                  <div class="modal-form">
+                    
+                  </div>
+                  <div class="modal-button-container">
+                    <button id="btn-confirm" type="button">Confirm</button>
+                    <button id="btn-cancel" type="button">Cancel</button>
+                  </div>
+                </div>
+              </div>
     </main>
     <footer>
-
+        <div>
+            <span>Special thanks to <a href="https://ergast.com/mrd/" target="_blank">Ergast API</a></span>
+        </div>
     </footer>
 </body>
 </html>
