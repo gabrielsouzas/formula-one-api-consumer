@@ -97,10 +97,14 @@ main .principal {
     background-color: #52616e;
 }
 
-main .principal h2 {
+.table-title, .extra-info {
     color: #FFF;
     text-align: center;
     padding: 10px 0;
+}
+
+.extra-info {
+  display: none;
 }
 
 /* TABLE*/
@@ -283,4 +287,4 @@ tr:nth-child(odd) {
     color: #ffffff96;
     font-size: 1.3rem;
     font-weight: 600;
-  }
+}

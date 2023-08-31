@@ -136,6 +136,40 @@ export const fetchRaceSchedule = async (year = 'current') => {
     }
 }
 
+export const fetchRaceResult = async (year = 'current', round = 'last') => {
+    try {
+        const response = await fetch(`${protocolType}://ergast.com/api/f1/${year}/${round}/results.json`);
+        if (response.ok) {
+            const races = await response.json();
+            if (races) {
+                return races.MRData;
+            } else {
+                return {
+                    error: 'Erro ao converter dados retornados.',
+                    status: response.status,
+                    message: response.statusText
+                };
+            }
+        } else {
+            return {
+                error: 'Erro na requisição',
+                status: response.status,
+                message: response.statusText
+            };
+        }
+    } catch (error) {
+        if (protocolType === 'https') {
+            protocolType = 'http';
+            try {
+                fetchRaceSchedule(year);
+            } catch (error) {
+                return {error};
+            }
+        }
+        return {error};
+    }
+}
+
 export const fetchDriversStandings = async (year) => {
     try {
         const response = await fetch(`${protocolType}://ergast.com/api/f1/${year}/driverStandings.json`);
