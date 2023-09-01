@@ -1,4 +1,4 @@
-import { fetchDriversStandings, fetchRaceResult, fetchRaceSchedule } from "../services/services.js";
+import { fetchConstructorsStandings, fetchDriversStandings, fetchRaceResult, fetchRaceSchedule } from "../services/services.js";
 
 const tableTitle = document.querySelector('.table-title');
 const extraInfo = document.querySelector('.extra-info');
@@ -71,6 +71,82 @@ const fillTableRacesSchedule = async (year = 'current') => {
     }
 }
 
+const calculateMaxPointsInDispute = async (type='') => {
+    const racesResult = await fetchRaceResult();
+    const currentRound = racesResult.RaceTable.round;
+    
+    const racesSchedule = await fetchRaceSchedule();
+    
+    var maxPoints = 0;
+    var pointsPerRace = 26;
+    var pointsPerSprint = 26;
+
+    if (type === 'constructors') {
+        pointsPerRace = 44;
+        pointsPerSprint = 15;
+    }
+
+    racesSchedule.forEach(race => {
+        if (Number(race.round) > Number(currentRound)) {
+            maxPoints += pointsPerRace;
+            if ('Sprint' in race) {
+                maxPoints += pointsPerSprint;
+            }
+        }
+    });
+
+    return maxPoints;
+};
+
+const fillTableConstructorsStandings = async (year = 'current') => {
+    try {
+        const constructors = await fetchConstructorsStandings(year);
+
+        tableTitle.innerHTML = 'Constructor Standings';
+        if (year === 'current' || year === currentYear.toString()) {
+            const maxPointsIn = await calculateMaxPointsInDispute('constructors');
+            extraInfo.innerHTML = `Max Points in Dispute: ${maxPointsIn}`;
+            extraInfo.style.display = 'block';
+        }
+
+        const theads = [ 'Position', 'Name', 'Points', 'Dif. Próx. Team', 'Wins', 'Nacionality',];
+        fillTableHead(theads);
+
+        tableBody.innerHTML = '';
+
+        for (let i = 0; i < constructors.length; i++) {
+            const row = document.createElement('tr');
+
+            const cellPosition = document.createElement('td');
+            const cellName = document.createElement('td');
+            const cellPoints = document.createElement('td');
+            const cellDifBehind = document.createElement('td');
+            const cellWins = document.createElement('td');
+            const cellNacionality = document.createElement('td');
+
+            const nextIndex = i+1 < constructors.length ? i+1 : i;
+
+            cellPosition.textContent = constructors[i].position;
+            cellName.textContent = constructors[i].Constructor.name;
+            cellPoints.textContent = constructors[i].points;
+            cellDifBehind.textContent = constructors[i].points - constructors[nextIndex].points;
+            cellWins.textContent = constructors[i].wins;
+            cellNacionality.textContent = constructors[i].Constructor.nationality;
+
+            row.appendChild(cellPosition);
+            row.appendChild(cellName);
+            row.appendChild(cellPoints);
+            row.appendChild(cellDifBehind);
+            row.appendChild(cellWins);
+            row.appendChild(cellNacionality);
+
+            tableBody.appendChild(row);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 const calculateDriverAge = (dateOfBirth) => {
     const data1 = new Date(dateOfBirth);
     const data2 = new Date();
@@ -82,27 +158,6 @@ const calculateDriverAge = (dateOfBirth) => {
 
     return Math.trunc(diferencaEmAnos); // Resultado da diferença em anos
 };
-
-const calculateMaxPointsInDispute = async () => {
-    const racesResult = await fetchRaceResult();
-    const currentRound = racesResult.RaceTable.round;
-    
-    const racesSchedule = await fetchRaceSchedule();
-    var maxPoints = 0;
-
-    racesSchedule.forEach(race => {
-       
-        if (Number(race.round) > Number(currentRound)) {
-            maxPoints += 26;
-            if ('Sprint' in race) {
-                maxPoints += 8;
-            }
-        }
-    });
-
-    return maxPoints;
-};
-
 
 const fillTableDriversStandings = async (year = 'current') => {
     try {
@@ -233,7 +288,7 @@ btnConfirm.addEventListener('click', () => {
     } else if (clickedButtonId === 'mn-drv-stdngs') {
         fillTableDriversStandings(inputModalYear.value);
     } else if (clickedButtonId === 'mn-cntrtr-stdngs') {
-        
+        fillTableConstructorsStandings(inputModalYear.value);
     } else if (clickedButtonId === 'mn-rc-anls') {
         
     } else if (clickedButtonId === 'mn-qly-anls') {

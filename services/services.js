@@ -2,7 +2,7 @@ var protocolType = 'https';
 
 export const fetchDrivers = async (year, round) => {
     try {
-        const response = await fetch(`${protocolType}://ergast.com/api/f1/${year}/${round}/drivers.json`); //?limit=2
+        const response = await fetch(`${protocolType}://ergast.com/api/f1/${year}/${round}/drivers.json?limit=2`); //?limit=2
     if (response.ok) {
         const drivers = await response.json();
         if (drivers) {
@@ -196,6 +196,40 @@ export const fetchDriversStandings = async (year) => {
             protocolType = 'http';
             try {
                 fetchDriversStandings(year);
+            } catch (error) {
+                return {error};
+            }
+        }
+        return {error};
+    }
+}
+
+export const fetchConstructorsStandings = async (year) => {
+    try {
+        const response = await fetch(`${protocolType}://ergast.com/api/f1/${year}/constructorStandings.json`);
+        if (response.ok) {
+            const constructors = await response.json();
+            if (constructors) {
+                return constructors.MRData.StandingsTable.StandingsLists[0].ConstructorStandings;
+            } else {
+                return {
+                    error: 'Erro ao converter dados retornados.',
+                    status: response.status,
+                    message: response.statusText
+                };
+            }
+        } else {
+            return {
+                error: 'Erro na requisição',
+                status: response.status,
+                message: response.statusText
+            };
+        }
+    } catch (error) {
+        if (protocolType === 'https') {
+            protocolType = 'http';
+            try {
+                fetchConstructorsStandings(year);
             } catch (error) {
                 return {error};
             }

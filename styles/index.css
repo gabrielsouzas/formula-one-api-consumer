@@ -56,14 +56,16 @@ main {
 
 /* SIDEBAR */
 
-main .sidebar {
+/*main .sidebar {
     display: flex;
     flex-direction: column;
     width: 300px;
     align-items: center;
     background-color: #121e2b;
     color: white;
-}
+}*/
+
+/* MENU */
 
 .menu {
     display: flex;

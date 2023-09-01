@@ -32,7 +32,17 @@
     </header>
     <main>
         <div class="principal">
-            <h1>Race Analisis</h1>
+            <h1>MENU</h1>
+            <div class="menu">
+                <button type="button" id="mn-rc-schd">Race Schedule</button>
+                <button type="button" id="mn-drv-stdngs">Drivers Standings</button>
+                <button type="button" id="mn-cntrtr-stdngs">Constructor Standings</button>
+                <button type="button" id="mn-rc-anls">Race Analisis</button>
+                <button type="button" id="mn-qly-anls">Qualy Analisis</button>
+            </div>
+
+            <h2 class="analisis-title">Race Analisis</h2>
+
             <div class="form-container">
                 <form id="form">
                     <label for="year">Year:</label>
@@ -54,30 +64,43 @@
                     <button type="submit">Load</button>
                 </form>
             </div>
-            <div class="chart-container">
+            <div class="analisis-container">
                 <div class="loader"></div>
-                <canvas id="lapTimesGrafic"></canvas>
+
+                <h3 class="table-title">Lap Time Comparison</h3>
+                
+                <div class="table-container">
 
                 <table class="table-compare">
                     <thead>
-                        <tr>
-                            <th>Lap</th>
-                            <th>Lap</th>
-                            <th>Time</th>
-                            <th>Time</th>
-                            <th>Position</th>
-                            <th>Position</th>
-                            <th>Diference</th>
-                            <th>Faster</th>
-                        </tr>
-                    </thead>
+                            <tr>
+                                <th rowspan="2">Lap</th>
+                                <th id="th-driver1" colspan="2">Driver 1</th>
+                                <th id="th-driver2" colspan="2">Driver 2</th>
+                                <th rowspan="2">Diference</th>
+                                <th rowspan="2">Faster</th>
+                              </tr>
+                            <tr>
+                                <th>Time</th>
+                                <th>Position</th>
+                                <th>Time</th>
+                                <th>Position</th>
+                            </tr>
+                        </thead>
                     <tbody id="table-body">
-                    <!-- Dados inseridos dinamicamente -->
+                    
                     </tbody>
                 </table>
             </div>
-            <!--<div class="table-container">
-                <table class="table-compare">
+
+                <div class="chart-container">
+                    <canvas id="lapTimesGrafic"></canvas>
+                </div>
+
+            </div>
+            
+
+                <!--<table class="table-compare">
                     <thead>
                         <tr>
                             <th>Lap</th>
@@ -90,15 +113,20 @@
                             <th>Faster</th>
                         </tr>
                     </thead>
-                    <tbody id="table-body">
+                    <tbody id="table-body">-->
                     <!-- Dados inseridos dinamicamente --><!--
                     </tbody>
-                </table>
-            </div>-->
+                </table>-->
+
+                
+            
+            
         </div>
     </main>
     <footer>
-
+        <div>
+            <span>Special thanks to <a href="https://ergast.com/mrd/" target="_blank">Ergast API</a></span>
+        </div>
     </footer>
 </body>
 </html>
